@@ -1,3 +1,4 @@
+#encoding: utf-8
 class KwDensity
   class Es < Base
     require "i18n"
