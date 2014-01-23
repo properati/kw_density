@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = KwDensity::VERSION
   spec.authors       = ["martin sarsale"]
   spec.email         = ["martin@properati.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Esta gema cuenta palabras.}
+  spec.summary       = %q{Y te da el top(n), etc}
   spec.homepage      = ""
   spec.license       = "MIT"
 
