@@ -1,6 +1,8 @@
 require "test_config"
 require "kw_density"
 require "kw_density/es"
+require "kw_density/pt"
+
 class TestKwDensity < Minitest::Unit::TestCase
   def test_basic
     d = KwDensity::Base.new
@@ -25,7 +27,7 @@ class TestKwDensity < Minitest::Unit::TestCase
   end
 
 
-  def test_basic_lang
+  def test_basic_lang_Es
     d = KwDensity::Es.new
     d << "test"
     assert_equal({"test" => 1}, d.top, "Basic")
@@ -33,8 +35,19 @@ class TestKwDensity < Minitest::Unit::TestCase
     assert_equal({"test" => 2, "perrito" => 1}, d.top, "Add more keywords")
     d << "TÉST"
     assert_equal({"test" => 3, "perrito" => 1}, d.top, "Canonicalize")
-
     d << "a ante cabe"
+    assert_equal({"test" => 3, "perrito" => 1}, d.top, "Reject prepositions")
+  end
+
+  def test_basic_lang_Pt
+    d = KwDensity::Pt.new
+    d << "test"
+    assert_equal({"test" => 1}, d.top, "Basic")
+    d << "perrito têst"
+    assert_equal({"test" => 2, "perrito" => 1}, d.top, "Add more keywords")
+    d << "TêsT"
+    assert_equal({"test" => 3, "perrito" => 1}, d.top, "Canonicalize")
+    d << "acima depois circulo em porque"
     assert_equal({"test" => 3, "perrito" => 1}, d.top, "Reject prepositions")
   end
 
